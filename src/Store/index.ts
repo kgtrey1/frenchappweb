@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import {
     persistStore,
     persistReducer,
@@ -9,13 +9,20 @@ import {
     PURGE,
     REGISTER,
 } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import { useDispatch, useSelector } from 'react-redux'
+import type { TypedUseSelectorHook } from 'react-redux'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const RootReducer = combineReducers({})
+import authSlice from '@/Store/AuthSlice'
+
+const RootReducer = combineReducers({
+    auth: authSlice,
+})
 
 const persistConfig = {
     key: 'root',
-    storage,
+    storage: AsyncStorage,
+    blacklist: ['auth'],
 }
 
 export const store = configureStore({
@@ -37,5 +44,7 @@ export const store = configureStore({
 })
 
 export const persistor = persistStore(store)
-export type AppState = ReturnType<typeof RootReducer>
-export default RootReducer
+export type RootState = ReturnType<typeof RootReducer>
+export type AppDispatch = typeof store.dispatch
+export const useAppDispatch: () => AppDispatch = useDispatch
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
