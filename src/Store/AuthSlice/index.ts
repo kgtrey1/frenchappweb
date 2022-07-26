@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
+import { authApi } from '@/Services/Auth'
 
 interface AuthState {
     token?: string
@@ -18,11 +19,17 @@ const authSlice = createSlice({
             state.token = undefined
             state.refreshToken = undefined
         },
-        login: (state: AuthState, action: PayloadAction<{ name: string }>) => {
-            state.token = action.payload.name
-        },
+    },
+    extraReducers: builder => {
+        builder.addMatcher(
+            authApi.endpoints.login.matchFulfilled,
+            (state: AuthState, { payload }) => {
+                state.token = payload.token
+                state.refreshToken = payload.refresh_token
+            },
+        )
     },
 })
 
-export const { disconnect, login } = authSlice.actions
+export const { disconnect } = authSlice.actions
 export default authSlice.reducer

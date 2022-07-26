@@ -15,14 +15,21 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import authSlice from '@/Store/AuthSlice'
 
+/**
+ * API
+ */
+
+import { authApi } from '@/Services/Auth'
+
 const RootReducer = combineReducers({
     auth: authSlice,
+    [authApi.reducerPath]: authApi.reducer,
 })
 
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
-    blacklist: ['auth'],
+    blacklist: ['authApi'],
 }
 
 export const store = configureStore({
@@ -39,12 +46,13 @@ export const store = configureStore({
                     REGISTER,
                 ],
             },
-        }),
+        }).concat([authApi.middleware]),
     devTools: true,
 })
 
-export const persistor = persistStore(store)
 export type RootState = ReturnType<typeof RootReducer>
 export type AppDispatch = typeof store.dispatch
+
+export const persistor = persistStore(store)
 export const useAppDispatch: () => AppDispatch = useDispatch
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
