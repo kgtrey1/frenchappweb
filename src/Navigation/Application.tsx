@@ -8,6 +8,7 @@ const Stack = createStackNavigator()
 
 const ApplicationNavigator: React.FC<{}> = (): JSX.Element => {
     return (
+        // eslint-disable-next-line react-native/no-inline-styles
         <View style={{ flex: 1 }}>
             <NavigationContainer>
                 <StatusBar barStyle={'dark-content'} />
