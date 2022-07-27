@@ -13,13 +13,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import type { TypedUseSelectorHook } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import authSlice from '@/Store/AuthSlice'
-
-/**
- * API
- */
-
-import { authApi } from '@/Services/Auth'
+import authSlice from '@/store/slice-auth'
+import authApi from '@/services/auth-service'
 
 const RootReducer = combineReducers({
     auth: authSlice,
@@ -34,19 +29,18 @@ const persistConfig = {
 
 export const store = configureStore({
     reducer: persistReducer(persistConfig, RootReducer),
-    middleware: getDefaultMiddleware =>
-        getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: [
-                    FLUSH,
-                    REHYDRATE,
-                    PAUSE,
-                    PERSIST,
-                    PURGE,
-                    REGISTER,
-                ],
-            },
-        }).concat([authApi.middleware]),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+        serializableCheck: {
+            ignoredActions: [
+                FLUSH,
+                REHYDRATE,
+                PAUSE,
+                PERSIST,
+                PURGE,
+                REGISTER,
+            ],
+        },
+    }).concat([authApi.middleware]),
     devTools: true,
 })
 
