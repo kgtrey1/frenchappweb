@@ -1,13 +1,20 @@
 import React from 'react'
-import { Text, View, TextInput, Pressable, StyleSheet } from 'react-native'
-
-import { useLoginMutation } from '@/Services/Auth'
+import {
+    Text, View, TextInput, Pressable, StyleSheet,
+} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
+
+import { useLoginMutation } from '@/services/auth-service'
+import { LoginStackParams } from '@/navigation/main'
+
+type LoginParams = StackNavigationProp<LoginStackParams, 'LoginScreen'>
 
 const Login: React.FC<{}> = (): JSX.Element => {
-    const { navigate } = useNavigation()
+    const { navigate } = useNavigation<LoginParams>()
 
     const [login, { error, isSuccess }] = useLoginMutation()
+
     const [mail, setMail] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')
 
@@ -27,7 +34,7 @@ const Login: React.FC<{}> = (): JSX.Element => {
             />
             <TextInput
                 autoCorrect={false}
-                autoCapitalize={'none'}
+                autoCapitalize="none"
                 placeholder="Password"
                 onChangeText={setPassword}
                 style={style.input}

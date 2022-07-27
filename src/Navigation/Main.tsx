@@ -1,13 +1,18 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import { Login, Home } from '@/Containers'
-import { useAppSelector } from '@/Store'
+import { Login, Home } from '@/screens'
+import { useAppSelector } from '@/store'
 
-const LoginStack = createStackNavigator()
+export type LoginStackParams = {
+    HomeScreen: undefined,
+    LoginScreen: undefined,
+}
+
+const LoginStack = createStackNavigator<LoginStackParams>()
 
 const MainNavigator: React.FC<{}> = (): JSX.Element => {
-    const token = useAppSelector(state => state.auth.token)
+    const token = useAppSelector((state) => state.auth.token)
 
     return (
         <LoginStack.Navigator

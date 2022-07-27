@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosRequestConfig } from 'axios'
 import { BaseQueryFn } from '@reduxjs/toolkit/query/react'
 
 import { API_URL } from '@/config/api'
-import { RootState } from '@/Store'
+import { RootState } from '@/store'
 import setupMocks from '@/config/mocks'
 
 const instance = axios.create({
