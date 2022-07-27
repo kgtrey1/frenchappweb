@@ -3,7 +3,7 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import { axiosBaseQuery } from '@/services'
 import * as Types from '@/services/auth-types'
 
-export const authApi = createApi({
+const authApi = createApi({
     reducerPath: 'authApi',
     baseQuery: axiosBaseQuery('auth'),
     endpoints: (builder) => ({
@@ -18,3 +18,4 @@ export const authApi = createApi({
 })
 
 export const { useLoginMutation } = authApi
+export default authApi
