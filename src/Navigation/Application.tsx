@@ -17,6 +17,7 @@ const ApplicationNavigator: React.FC<{}> = (): JSX.Element => (
                     component={MainNavigator}
                     options={{
                         animationEnabled: false,
+                        headerShown: false,
                     }}
                 />
             </Stack.Navigator>

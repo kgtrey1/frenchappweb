@@ -17,7 +17,7 @@ module.exports = {
                 'react/sort-prop-types': ['error'],
                 'react/jsx-indent': ['error', 4],
                 'react/jsx-indent-props': ['error', 4],
-                '@typescript-eslint/indent': ['error', 4],
+                '@typescript-eslint/indent': off,
                 '@typescript-eslint/semi': [error, 'never'],
                 '@typescript-eslint/lines-between-class-members': [
                     'error',
@@ -33,7 +33,6 @@ module.exports = {
                 'func-names': error,
                 'no-console': ['error', { allow: ['warn', 'error'] }],
                 'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
-                'prettier/prettier': off, // disable prettier
                 'no-param-reassign': off,
                 'react-hooks/exhaustive-deps': off,
                 "no-use-before-define": "off",

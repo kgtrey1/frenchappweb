@@ -1,6 +1,10 @@
 import React from 'react'
 import {
-    FlatList, ViewStyle, StyleProp, ListRenderItem, ViewToken,
+    FlatList,
+    ViewStyle,
+    StyleProp,
+    ListRenderItem,
+    ViewToken,
 } from 'react-native'
 
 type CarouselProps<T> = {
@@ -20,26 +24,37 @@ const Carousel = <T extends unknown>({
     onItemChanged,
     renderItem,
 }: CarouselProps<T>): JSX.Element => {
-    const onViewChanged = React.useCallback(({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
-        if (viewableItems.length === 1 && viewableItems[0].index !== null && onItemChanged !== undefined) {
-            onItemChanged(viewableItems[0].index)
-        }
-    }, [])
+    const onViewChanged = React.useCallback(
+        ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
+            if (
+                viewableItems.length === 1 &&
+                viewableItems[0].index !== null &&
+                onItemChanged !== undefined
+            ) {
+                onItemChanged(viewableItems[0].index)
+            }
+        },
+        [],
+    )
 
     return (
         <FlatList
             ref={flatlistRef}
             data={data}
             renderItem={renderItem}
-            style={[style, {
-                width,
-            }]}
+            style={[
+                style,
+                {
+                    width,
+                },
+            ]}
             horizontal
             pagingEnabled
             onViewableItemsChanged={onViewChanged}
             viewabilityConfig={{
                 viewAreaCoveragePercentThreshold: 51,
             }}
+            showsHorizontalScrollIndicator={false}
         />
     )
 }

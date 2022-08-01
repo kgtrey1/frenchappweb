@@ -13,9 +13,14 @@ if (__DEV__) {
     setupMocks(instance)
 }
 
-export const axiosBaseQuery = (endpoint: string): BaseQueryFn<AxiosRequestConfig<any>, unknown, unknown> => {
-    // eslint-disable-next-line max-len, @typescript-eslint/no-unused-vars
-    const queryFn: BaseQueryFn<AxiosRequestConfig<any>, unknown, unknown> = async (args, api, extraOptions) => {
+export const axiosBaseQuery = (
+    endpoint: string,
+): BaseQueryFn<AxiosRequestConfig<any>, unknown, unknown> => {
+    const queryFn: BaseQueryFn<
+        AxiosRequestConfig<any>,
+        unknown,
+        unknown
+    > = async (args, api, extraOptions) => {
         const { token } = (api.getState() as RootState).auth
 
         if (token !== undefined) {
